@@ -1,0 +1,19 @@
+{
+    "produtos": [
+        {
+            "id": 1,
+            "produto": "Banco",
+            "valor" : 1200
+        },
+        {
+            "id": 2,
+            "produto": "Sapato",
+            "valor" : 1500
+        },
+        {
+            "id": 3,
+            "produto": "Tenis",
+            "valor" : 1330
+        }
+    ]
+}

@@ -1,24 +1,50 @@
-import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table'; // This is for your component class
-import { MatTableModule } from '@angular/material/table'; // This is for the template
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ProdutosService } from '../../services/produtos.service';
+import { Produtos } from '../../Interfaces/Produtos';
+import { CommonModule } from '@angular/common';
+import { SearchButtonComponent } from "../search-button/search-button.component";
 
 @Component({
   standalone: true,
   selector: 'app-table',
   imports: [
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTableModule // Use MatTableModule here instead of MatTableDataSource
-  ],
+    MatTableModule,
+    SearchButtonComponent
+],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.css'
+  styleUrls: ['./table.component.css']
 })
-export class TableComponent {
-  dataSource = new MatTableDataSource<any>(); // Use MatTableDataSource here in your class
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+export class TableComponent implements OnInit {
+  dataSource = new MatTableDataSource<Produtos>();
+  displayedColumns: string[] = ['id', 'produto', 'valor'];
+  isLoading = true;
 
+  constructor(private produtosService: ProdutosService) {}
+
+  ngOnInit(): void {
+    this.carregarProdutos();
+  }
+
+  carregarProdutos(): void {
+    this.produtosService.getProdutos().subscribe({
+      next: (dados) => {
+        this.dataSource.data = dados;
+        this.isLoading = false;
+        console.log('Dados carregados:', dados); // Para verificação
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar produtos:', erro);
+        this.isLoading = false;
+      }
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

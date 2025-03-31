@@ -1,0 +1,19 @@
+.table-container {
+    padding: 20px;
+    width: 100%;
+  }
+  
+  table {
+    width: 100%;
+  }
+
+  .btn-search{
+    width: 100%;
+    border: none;
+    
+  }
+
+  .form-field{
+    width: 100%;
+    
+  }
