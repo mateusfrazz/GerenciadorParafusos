@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProdutosService } from '../../services/produtos.service';
 import { Produtos } from '../../Interfaces/Produtos';
-import { SearchButtonComponent } from "../search-button/search-button.component";
 import { MatPaginator } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MATERIALMODULE } from '../../shared/material/material-imports';
@@ -14,7 +13,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
   selector: 'app-table',
   imports: [
     MATERIALMODULE,
-    SearchButtonComponent,
     CommonModule,
     MatPaginatorModule,
     MatSortModule
