@@ -8,17 +8,17 @@ import { Produtos } from '../../Interfaces/Produtos';
 import { CommonModule } from '@angular/common';
 import { SearchButtonComponent } from "../search-button/search-button.component";
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import { materialImports } from '../../shared/material/material-imports';
 
 @Component({
   standalone: true,
   selector: 'app-table',
   imports: [
+    materialImports,
     CommonModule,
-    MatFormFieldModule,
     MatInputModule,
     MatTableModule,
-    SearchButtonComponent
+    SearchButtonComponent,
 ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
