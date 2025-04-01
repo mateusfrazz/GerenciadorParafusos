@@ -8,5 +8,5 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-   title: string= 'Listagem';
+ 
 }

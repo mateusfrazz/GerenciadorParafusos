@@ -7,6 +7,8 @@ import { ProdutosService } from '../../services/produtos.service';
 import { Produtos } from '../../Interfaces/Produtos';
 import { CommonModule } from '@angular/common';
 import { SearchButtonComponent } from "../search-button/search-button.component";
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @Component({
   standalone: true,
@@ -22,6 +24,8 @@ import { SearchButtonComponent } from "../search-button/search-button.component"
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
+  title: string= 'Listagem';
+  
   dataSource = new MatTableDataSource<Produtos>();
   displayedColumns: string[] = ['id', 'produto', 'valor'];
   isLoading = true;
