@@ -1,34 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatTableModule } from '@angular/material/table';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { ProdutosService } from '../../services/produtos.service';
 import { Produtos } from '../../Interfaces/Produtos';
-import { CommonModule } from '@angular/common';
 import { SearchButtonComponent } from "../search-button/search-button.component";
-import {MatPaginatorModule} from '@angular/material/paginator';
-import { materialImports } from '../../shared/material/material-imports';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MATERIALMODULE } from '../../shared/material/material-imports';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   standalone: true,
   selector: 'app-table',
   imports: [
-    materialImports,
-    CommonModule,
-    MatInputModule,
-    MatTableModule,
+    MATERIALMODULE,
     SearchButtonComponent,
-],
+    CommonModule,
+    MatPaginatorModule,
+    MatSortModule
+  ],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
-  title: string= 'Listagem';
+export class TableComponent implements OnInit, AfterViewInit {
+  title: string = 'Listagem';
   
   dataSource = new MatTableDataSource<Produtos>();
   displayedColumns: string[] = ['id', 'produto', 'valor'];
   isLoading = true;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private produtosService: ProdutosService) {}
 
@@ -36,12 +38,17 @@ export class TableComponent implements OnInit {
     this.carregarProdutos();
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   carregarProdutos(): void {
     this.produtosService.getProdutos().subscribe({
       next: (dados) => {
         this.dataSource.data = dados;
         this.isLoading = false;
-        console.log('Dados carregados:', dados); // Para verificação
+        console.log('Dados carregados:', dados);
       },
       error: (erro) => {
         console.error('Erro ao carregar produtos:', erro);
